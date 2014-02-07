@@ -6,6 +6,8 @@ This is a small PHP class that makes it easy to build and output forms as HTML5.
 
 **Documentation may be obsolete**
 
+**Also, There is [Pear simple HTML form generator](http://pear.php.net/manual/en/package.html.html-form.intro.php)**
+
 ## Working with the form builder
 
 The process for creating a form is simple:
