@@ -1,10 +1,10 @@
-# PHP Form Builder by JoshCanHelp
+# PHP JSON HTML5 Form generator
+This is a small PHP class that makes it easy to build and output forms as HTML5. Forms are tedious and can be difficult to build just right. Also, there are so many different option possible that it's easy to forget what you can do with them. 
 
-This is a small PHP class that makes it easy to build and output forms as HTML or XHTML. Forms are tedious and can be difficult to build just right. Also, there are so many different option possible that it's easy to forget what you can do with them. 
+**Forked from [joshcanhelp/php-form-builder](https://github.com/joshcanhelp/php-form-builder).**
+ [ I ](https://github.com/a-x-) want make JSON based server-side HTML5 form generator.
 
-I tried to balance ease-of-use with flexibility and came up with something I find pretty darn helpful. I'm considering this a "beta" for the time being since it's only being used in a few applications and all the different options have not been exhaustively checked. 
-
-Give it a try and let me know what you like, hate, and think needs to be fixed. 
+**Documentation may be obsolete**
 
 ## Working with the form builder
 
@@ -87,7 +87,7 @@ Inputs can be added one at a time or as a group. Either way, the order they are 
 Add fields using their label (in human-readable form), an array of settings, and a name/id slug, if needed.
 
 ```php
-$new_form->add_input('I'm a little field', array(), 'little_field')
+$new_form->add_input('I am a little field', array(), 'little_field')
 ```
 
 * Argument 1: A human-readable label that is parsed and turned into the name and id, if these options aren't explicitly set. If you use a simple label like "email" here, make sure to set a more specific name in argument 3.
@@ -205,14 +205,18 @@ $new_form->build_form();
 ```
 
 ## Roadmap
-
+### @joshcanhelp's TODOs
 There are a few things that I'd like to correct here and a few features to add. In order of priority:
 
-* Validation for adding classes and ids
-* Add fieldsets and legends
+* ~~Validation for adding classes and ids~~ [done]
+* Add fieldsets and legends [may be...]
 * Function to change the default field settings
-* Add ability to set selected and checked for select and multiple checkboxes
-* More strict name generation
-* Ability to add HTML within the form
-* 'html_before' and 'html_after' for form attributes
+* Add ability to set selected and checked for select and multiple checkboxes [what it's?]
+* More strict name generation [to check]
+* ~~Ability to add HTML within the form~~ [canceled]
+* ~~`html_before` and `html_after` for form attributes~~ [canceled]
 
+### New items
+* Add JSON adapter
+* Clean up build_form()
+* Take out html from php code into external templates
