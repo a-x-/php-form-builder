@@ -1,0 +1,7 @@
+{
+    "form": "<form action='%action%' method='%method%' enctype='%enctype%'></form>",
+    "base": "<div class='input-group'>\
+            <label class='input-group-addon' for='%label%'>%caption%</label>\
+            <input pattern='%pattern%' title='%title%' type='%type%' name='%label%' id='%label%' class='form-control' placeholder='%placeholder%' %attr%>\
+        </div>"
+}
