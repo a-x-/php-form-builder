@@ -15,7 +15,6 @@
  * @param $prefix                    string                         replacement prefix
  * @param $postfix                   string                         replacement postfix
  * @return                           string                         Result
- * @todo critical - add html attr replace
  */
 function specify_template_abstract($template, $vars, $specialValuesForKeyValues = array(), $pattern, $prefix = '', $postfix = '')
 {
