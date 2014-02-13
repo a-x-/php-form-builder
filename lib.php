@@ -77,10 +77,10 @@ function replace_escape_indexes_with_matches($escape_sequence, $matches)
 
 function eval_array($array_string)
 {
-//    if (preg_match('/^\s*\[.*?\]\s*$/s',$array_string))
-    return eval('return ' . $array_string . ';');
-//    else
-//        return [];
+    if (preg_match('/^\s*\[.*?\]\s*$/s', $array_string))
+        return eval('return ' . $array_string . ';');
+    else
+        return [];
 }
 
 /**
