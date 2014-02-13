@@ -60,17 +60,6 @@ function specify_template($template, $vars, $specialValuesForKeyValues = array()
 
 
 /**
- * @param $template_name string
- * @param $variables array of string - Placeholder replacements
- * @return string - Specified html template
- */
-function specify_template_default($template_name, $variables)
-{
-    return specify_template(json_decode(file_get_contents('defaultTemplatesCollection.json'), true)[$template_name],
-        $variables);
-}
-
-/**
  * Replace, for example '\1=\2; ' where $matches=['title','4e110 w021d!'] with 'title=4e110 w021d!; '.
  * @param $escape_sequence
  * @param $matches

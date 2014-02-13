@@ -321,6 +321,19 @@ class Json2Form
         return (bool)preg_match('/^[a-z][a-z0-9_-:.]*$/i', $string);
     }
 
+
+    /**
+     * @param $template_name string
+     * @param $variables array of string - Placeholder replacements
+     * @return string - Specified html template
+     */
+    private static function _specify_template_default($template_name, $variables)
+    {
+        return specify_template(json_decode(file_get_contents('defaultTemplatesCollection.json'), true)[$template_name],
+            $variables);
+    }
+
+
 //    /**
 //     * Builds the select input output
 //     * @param $arr
@@ -331,7 +344,7 @@ class Json2Form
 //    {
 //        $output = '';
 //        foreach ($arr as $val => $opt) :
-//            $output .= specify_template_default('option', ['value' => $val, 'option' => $opt]);
+//            $output .= _specify_template_default('option', ['value' => $val, 'option' => $opt]);
 //        endforeach;
 //        return $output;
 //    }
