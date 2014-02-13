@@ -11,24 +11,52 @@
  * @param $vars                      array of mixed                 Variables' array
  * @param $specialValuesForKeyValues array of tuple<string,string>  Example: array('img' => array('', '../media/none.png'))
  *                                   ,                              {needleKey => [needleValue, replacementValue],,,}
+ * @param $pattern                   string                         regexp pattern
+ * @param $prefix                    string                         replacement prefix
+ * @param $postfix                   string                         replacement postfix
  * @return                           string                         Result
  * @todo critical - add html attr replace
  */
-function substVars($template, $vars, $specialValuesForKeyValues = array())
+function specify_template_abstract($template, $vars, $specialValuesForKeyValues = array(), $pattern, $prefix = '', $postfix = '')
 {
-    return preg_replace_callback('/%%([a-z_-]+?)%%/i',
-        function ($matches) use ($vars, $specialValuesForKeyValues) {
+    return preg_replace_callback(
+        $pattern,
+        function ($matches) use ($vars, $specialValuesForKeyValues, $prefix, $postfix) {
             if (
                 $specialValuesForKeyValues &&
                 array_key_exists($matches[1] /*needle var`s Name*/, $specialValuesForKeyValues) &&
                 $vars[$matches[1]] /*needle var`s Value*/ == $specialValuesForKeyValues[$matches[1]][0] /*replacement Value*/
             )
-                return $specialValuesForKeyValues[$matches[1]][1];
-            if (!isset($vars[$matches[1]])) errorHandle("substVarsSafety(): placeholder '$matches[1]' haven't value");
-            return $vars[$matches[1]];
+                $output = $specialValuesForKeyValues[$matches[1]][1];
+            elseif (!isset($vars[$matches[1]])) {
+                errorHandle("substVarsSafety(): placeholder '$matches[1]' haven't value");
+                $output = '';
+            } else
+                $output = $vars[$matches[1]];
+
+            $prefix = replace_escape_indexes_with_matches($prefix, $matches);
+            $postfix = replace_escape_indexes_with_matches($postfix, $matches);
+            return $prefix . $output . $postfix;
         },
         $template
     );
+}
+
+/**
+ * Replace %%placeholder%% with variable[placeholder] and placeholder='' with placeholder='variable[placeholder]'.
+ * @param $template
+ * @param $vars
+ * @param array $specialValuesForKeyValues
+ * @return string
+ */
+function specify_template($template, $vars, $specialValuesForKeyValues = array())
+{
+    $output = $template;
+    // (?=>...) must have fixed length :-((
+    // It isn't correct:   return specify_template_abstract($template, $vars, $specialValuesForKeyValues, '/(?|%%([a-z_-]+?)%%|(?<=([a-z_-]{1,40}?)=(\'|")).*?(?=\2))/i');
+    $output = specify_template_abstract($output, $vars, $specialValuesForKeyValues, '/%%([a-z_-]+?)%%/i');
+    $output = specify_template_abstract($output, $vars, $specialValuesForKeyValues, '/([a-z_-]+?)=(\'|").*?\2/i', '\1=\2', '\2');
+    return $output;
 }
 
 
@@ -37,10 +65,25 @@ function substVars($template, $vars, $specialValuesForKeyValues = array())
  * @param $variables array of string - Placeholder replacements
  * @return string - Specified html template
  */
-function specify_template($template_name, $variables)
+function specify_template_default($template_name, $variables)
 {
-    return substVars(json_decode(file_get_contents('defaultTemplatesCollection.json'), true)[$template_name],
+    return specify_template(json_decode(file_get_contents('defaultTemplatesCollection.json'), true)[$template_name],
         $variables);
+}
+
+/**
+ * Replace, for example '\1=\2; ' where $matches=['title','4e110 w021d!'] with 'title=4e110 w021d!; '.
+ * @param $escape_sequence
+ * @param $matches
+ * @return mixed
+ */
+function replace_escape_indexes_with_matches($escape_sequence, $matches)
+{
+    if ($escape_sequence)
+        return preg_replace_callback('/\\\([0-9]+)/', function ($index_matches) use ($matches) {
+            return $matches[$index_matches[1]];
+        }, $escape_sequence);
+    else return $escape_sequence;
 }
 
 /**
@@ -76,18 +119,18 @@ function fs($patch, $mode = false, $size_data = false)
     if (!($hdl = fopen($patch, $mode))) return false;
     if (!$size_data && $mode == 'r') return file_get_contents($patch);
     switch ($mode) {
-        case('r'):
-            @flock($hdl, LOCK_EX);
-            $sr = fread($hdl, $size_data);
-            @flock($hdl, LOCK_UN);
-            @fclose($hdl);
-            return $sr;
-        case('a'):
-        case('w'):
-            $hdl = fopen($patch, $mode);
-            fwrite($hdl, $size_data);
-            fclose($hdl);
-            return true;
+    case('r'):
+        @flock($hdl, LOCK_EX);
+        $sr = fread($hdl, $size_data);
+        @flock($hdl, LOCK_UN);
+        @fclose($hdl);
+        return $sr;
+    case('a'):
+    case('w'):
+        $hdl = fopen($patch, $mode);
+        fwrite($hdl, $size_data);
+        fclose($hdl);
+        return true;
     }
     return false;
 }

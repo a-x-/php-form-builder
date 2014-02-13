@@ -1,4 +1,5 @@
 <?php
+require_once('lib.php');
 
 class Json2Form
 {
@@ -61,7 +62,7 @@ class Json2Form
 
         $values = array();
         $values += $this->_form_attr;
-        substVars(json_decode(file_get_contents('defaultTemplatesCollection.json')), $values);
+        specify_template(json_decode(file_get_contents('defaultTemplatesCollection.json')), $values);
     }
 
     /**
@@ -330,7 +331,7 @@ class Json2Form
 //    {
 //        $output = '';
 //        foreach ($arr as $val => $opt) :
-//            $output .= specify_template('option', ['value' => $val, 'option' => $opt]);
+//            $output .= specify_template_default('option', ['value' => $val, 'option' => $opt]);
 //        endforeach;
 //        return $output;
 //    }
