@@ -46,6 +46,7 @@ function specify_template_abstract($template, $vars, $specialValuesForKeyValues 
  * @param $template
  * @param $vars
  * @param array $specialValuesForKeyValues
+ * @test echo specify_template('<qwee AA="">', ['AA' => '123']);
  * @return string
  */
 function specify_template($template, $vars, $specialValuesForKeyValues = array())
@@ -72,6 +73,14 @@ function replace_escape_indexes_with_matches($escape_sequence, $matches)
             return $matches[$index_matches[1]];
         }, $escape_sequence);
     else return $escape_sequence;
+}
+
+function eval_array($array_string)
+{
+//    if (preg_match('/^\s*\[.*?\]\s*$/s',$array_string))
+    return eval('return ' . $array_string . ';');
+//    else
+//        return [];
 }
 
 /**

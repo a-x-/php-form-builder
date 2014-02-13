@@ -62,7 +62,7 @@ class Json2Form
 
         $values = array();
         $values += $this->_form_attr;
-        specify_template(json_decode(file_get_contents('defaultTemplatesCollection.json')), $values);
+        specify_template(eval_array(file_get_contents('defaultTemplatesCollection.json.php')), $values);
     }
 
     /**
@@ -325,11 +325,12 @@ class Json2Form
     /**
      * @param $template_name string
      * @param $variables array of string - Placeholder replacements
+     * @test echo Json2Form::_specify_template_default('option', ['value' => 'asdf', 'option' => 'jlk;']);
      * @return string - Specified html template
      */
-    private static function _specify_template_default($template_name, $variables)
+    public static function _specify_template_default($template_name, $variables)
     {
-        return specify_template(json_decode(file_get_contents('defaultTemplatesCollection.json'), true)[$template_name],
+        return specify_template(eval_array(file_get_contents('defaultTemplatesCollection.json.php'))[$template_name],
             $variables);
     }
 
