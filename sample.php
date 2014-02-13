@@ -26,24 +26,24 @@ Pass in a URL to set the action
 $form = new Json2Form();
 
 /*
-Form attributes are modified with the set_att function.
+Form attributes are modified with the _is_form_attr_valid function.
 First argument is the setting
 Second argument is the value
 */
-/*$form->set_att('method', 'post');
-$form->set_att('enctype', 'a_contact_form');
-$form->set_att('markup', 'html');
-$form->set_att('class', 'class_1');
-$form->set_att('class', 'class_2');
-$form->set_att('id', 'a_contact_form');
-$form->set_att('novalidate', true);
-$form->set_att('add_honeypot', false);
-$form->set_att('add_nonce', 'a_contact_form');
+/*$form->_is_form_attr_valid('method', 'post');
+$form->_is_form_attr_valid('enctype', 'a_contact_form');
+$form->_is_form_attr_valid('markup', 'html');
+$form->_is_form_attr_valid('class', 'class_1');
+$form->_is_form_attr_valid('class', 'class_2');
+$form->_is_form_attr_valid('id', 'a_contact_form');
+$form->_is_form_attr_valid('novalidate', true);
+$form->_is_form_attr_valid('add_honeypot', false);
+$form->_is_form_attr_valid('add_nonce', 'a_contact_form');
 
 */
 
-$form->set_att('enctype', 'multipart/form-data');
-$form->set_att('method', 'post');
+//$form->_is_form_attr_valid('enctype', 'multipart/form-data');
+//$form->_is_form_attr_valid('method', 'post');
 
 /*
 Uss add_input to create form fields
@@ -95,11 +95,11 @@ $form->add_input('Question or comment', array(
     'value' => 'Type away!'
 ));
 
-$form->add_inputs(array(
-    array('Field 1'),
-    array('Field 2'),
-    array('Field 3')
-));
+//$form->add_inputs(array(
+//    array('Field 1'),
+//    array('Field 2'),
+//    array('Field 3')
+//));
 
 /*
 Create the form

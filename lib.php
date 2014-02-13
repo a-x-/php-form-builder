@@ -12,6 +12,7 @@
  * @param $specialValuesForKeyValues array of tuple<string,string>  Example: array('img' => array('', '../media/none.png'))
  *                                   ,                              {needleKey => [needleValue, replacementValue],,,}
  * @return                           string                         Result
+ * @todo critical - add html attr replace
  */
 function substVars($template, $vars, $specialValuesForKeyValues = array())
 {
@@ -32,8 +33,18 @@ function substVars($template, $vars, $specialValuesForKeyValues = array())
 
 
 /**
+ * @param $template_name string
+ * @param $variables array of string - Placeholder replacements
+ * @return string - Specified html template
+ */
+function specify_template($template_name, $variables)
+{
+    return substVars(json_decode(file_get_contents('defaultTemplatesCollection.json'), true)[$template_name],
+        $variables);
+}
+
+/**
  * @param string $message
- *
  * @return bool
  */
 function errorHandle($message)

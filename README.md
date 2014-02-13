@@ -49,35 +49,35 @@ $new_form = new FormBuilder('http://submit-here.com');
 
 ### 2) Change any form attributes, if desired
 
-Once the form has been created, use the <code>set_att</code> function to change the default attributes:
+Once the form has been created, use the <code>_is_form_attr_valid</code> function to change the default attributes:
 
 ```php
 // Add a new form action
-$new_form->set_att('action', 'http://submit-here.com');
+$new_form->_is_form_attr_valid('action', 'http://submit-here.com');
 
 // Change the submit method
-$new_form->set_att('method', ''get);
+$new_form->_is_form_attr_valid('method', ''get);
 
 // Change the enctype
-$new_form->set_att('enctype', 'multipart/form-data');
+$new_form->_is_form_attr_valid('enctype', 'multipart/form-data');
 
 // Can be set to 'html' or 'xhtml'
-$new_form->set_att('markup', 'xhtml');
+$new_form->_is_form_attr_valid('markup', 'xhtml');
 
 // Classes are added as an array
-$new_form->set_att('class', 'array()');
+$new_form->_is_form_attr_valid('class', 'array()');
 
 // Add an id to the form
-$new_form->set_att('id', 'xhtml');
+$new_form->_is_form_attr_valid('id', 'xhtml');
 
 // Adds the HTML5 "novalidate" attribute
-$new_form->set_att('novalidate', true);
+$new_form->_is_form_attr_valid('novalidate', true);
 
 // Adds a WordPress nonce field using the string being passed
-$new_form->set_att('add_nonce', 'build_a_nonce_using_this');
+$new_form->_is_form_attr_valid('add_nonce', 'build_a_nonce_using_this');
 
 // Adds a blank, hidden text field for spam control
-$new_form->set_att('add_honeypot', true);
+$new_form->_is_form_attr_valid('add_honeypot', true);
 ```
 
 Currently, there are some restrictions to what can be added but no check as to whether the classes or ids are valid so be mindful of that. 
