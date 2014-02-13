@@ -320,20 +320,20 @@ class Json2Form
         return (bool)preg_match('/^[a-z][a-z0-9_-:.]*$/i', $string);
     }
 
-    /**
-     * Builds the select input output
-     * @param $arr
-     * @return string
-     * Reviewed
-     */
-    private static function _build_select_options($arr)
-    {
-        $output = '';
-        foreach ($arr as $val => $opt) :
-            $output .= specify_template('option', ['value' => $val, 'option' => $opt]);
-        endforeach;
-        return $output;
-    }
+//    /**
+//     * Builds the select input output
+//     * @param $arr
+//     * @return string
+//     * Reviewed
+//     */
+//    private static function _build_select_options($arr)
+//    {
+//        $output = '';
+//        foreach ($arr as $val => $opt) :
+//            $output .= specify_template('option', ['value' => $val, 'option' => $opt]);
+//        endforeach;
+//        return $output;
+//    }
 
 //    /**
 //     * Parses and builds the classes in multiple places

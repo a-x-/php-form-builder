@@ -17,7 +17,7 @@ echo '<pre>';
 print_r($_FILES);
 echo '</pre>';
 
-require_once('Form.php');
+require_once('Json2Form.php');
 
 /*
 Create a new instance
