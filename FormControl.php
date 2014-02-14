@@ -4,7 +4,7 @@
  * @file php-form-builder / FormControl.php
  * Created: 14.02.14 / 12:35
  */
-class FormControl
+class FormControl extends Json2Form
 {
     private $_templates_collection_file;
 
@@ -24,18 +24,15 @@ class TextFormControl extends FormControl
 
 }
 
-;
 
 class ButtonFormControl extends FormControl
 {
 
 }
 
-;
 
 class TextareaFormControl extends FormControl
 {
 
 }
 
-;

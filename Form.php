@@ -1,7 +1,10 @@
 <?php
-require_once('lib.php');
 
-class Form
+/**
+ * @file php-form-builder / Form.php
+ * Created: 14.02.14 / 13:35
+ */
+class Form extends Json2Form
 {
     /*const*/ // fucked php!
     public static $Enctype = ['text' => 'application/x-www-form-urlencoded', 'file' => 'multipart/form-data'];
@@ -12,10 +15,10 @@ class Form
     // Stores all form _form_controls
     private $_form_controls = array();
 
+    private $_has_file = false;
+
     // Stores all form attributes
     private $_form_attr = array();
-
-    private $_has_file = false;
 
     /**
      * Constructor to set basic form attributes
@@ -62,7 +65,7 @@ class Form
 
         $values = array();
         $values += $this->_form_attr;
-        return Form::_specify_template_default('form', $values);
+        return Json2Form::_specify_template_default('form', $values);
     }
 
     /**
@@ -76,7 +79,7 @@ class Form
 
         if (empty($args)) $args = array();
         // Create slug
-        if (empty($slug)) $slug = Form::_make_slug($label);
+        if (empty($slug)) $slug = Json2Form::_make_slug($label);
 
         $defaults = array(
             'type' => 'text',
@@ -108,6 +111,31 @@ class Form
 
     }
 
+
+    /**
+     * Set attributes for the form and special fields
+     * @param $key
+     * @param $val
+     * @return bool
+     */
+    private function _is_form_attr_valid($key, $val)
+    {
+        switch ($key) {
+        case 'method':
+            if (!in_array($val, Form::$HttpType)) return false;
+            break;
+        case 'enctype':
+            if (!isset(Form::$Enctype[$val])) return false;
+            break;
+        case 'class':
+        case 'id':
+            if (!$this->_is_valid_attr_val($val)) return false;
+            break;
+        default:
+            return false;
+        }
+        return true;
+    }
 
     /**
      * @param $type - input (form control) type
@@ -214,28 +242,6 @@ class Form
         return $output;
     }
 
-    /**
-     * Create a slug from a label name
-     * @param $string
-     * @return mixed|string
-     * @todo  Add validation for classes and ids
-     * Reviewed
-     */
-    private static function _make_slug($string)
-    {
-        $result = preg_replace('!"|\'|_!', '', $string);
-        $result = preg_replace('~[\W\s]~', '-', $result);
-        $result = strtolower($result);
-        return $result;
-    }
-
-//    /**
-//     * Easy way to auto-close fields, if necessary
-//     */
-//    function _get_field_close()
-//    {
-//        return $this->_form_attr['markup'] === 'xhtml' ? ' />' : '>';
-//    }
 
 //
 //    /**
@@ -277,62 +283,6 @@ class Form
 //        endforeach;
 //        return $output;
 //    }
-
-
-    /**
-     * Set attributes for the form and special fields
-     * @param $key
-     * @param $val
-     * @return bool
-     */
-    private function _is_form_attr_valid($key, $val)
-    {
-        switch ($key) {
-        case 'method':
-            if (!in_array($val, Form::$HttpType)) return false;
-            break;
-        case 'enctype':
-            if (!isset(Form::$Enctype[$val])) return false;
-            break;
-        case 'class':
-        case 'id':
-            if (!$this->_is_valid_attr_val($val)) return false;
-            break;
-        default:
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Check html element's id or class candidate for correct characters.
-     *
-     * ID and NAME tokens must begin with a letter ([A-Za-z])
-     * and may be followed by any number of
-     * letters, digits ([0-9]), hyphens ("-"), underscores ("_"), colons (":"), and periods (".").
-     * [[http://www.w3.org/TR/html401/types.html#type-name]]
-     *
-     * @param $string
-     * @return bool
-     * Reviewed
-     */
-    private static function _is_valid_attr_val($string)
-    {
-        return (bool)preg_match('/^[a-z][a-z0-9_-:.]*$/i', $string);
-    }
-
-
-    /**
-     * @param $template_name string
-     * @param $variables array of string - Placeholder replacements
-     * @test echo Form::_specify_template_default('option', ['value' => 'ADA', 'option' => 'jlk;']);
-     * @return string - Specified html template
-     */
-    public static function _specify_template_default($template_name, $variables)
-    {
-        return trim(specify_template(eval_array(file_get_contents('defaultTemplatesCollection.json.php'))[$template_name],
-            $variables));
-    }
 
 
 //    /**

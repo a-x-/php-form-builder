@@ -5,4 +5,4 @@
  */
 require_once('Form.php');
 echo specify_template('<video title="">', ['title' => '123']);
-echo Form::_specify_template_default('option', ['value' => 'ADA', 'option' => 'jlk;']);
+echo Json2Form::_specify_template_default('option', ['value' => 'ADA', 'option' => 'jlk;']);
