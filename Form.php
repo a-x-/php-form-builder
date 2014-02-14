@@ -1,7 +1,7 @@
 <?php
 require_once('lib.php');
 
-class Json2Form
+class Form
 {
     /*const*/ // fucked php!
     public static $Enctype = ['text' => 'application/x-www-form-urlencoded', 'file' => 'multipart/form-data'];
@@ -52,7 +52,7 @@ class Json2Form
             ));
 
         if ($this->_has_file)
-            $this->_form_attr['enctype'] = Json2Form::$Enctype['file'];
+            $this->_form_attr['enctype'] = Form::$Enctype['file'];
 
         foreach ($this->_form_controls as $form_control) {
 //            $min_max_range = $element = $end = $attr = $field = $label_html = '';
@@ -62,7 +62,7 @@ class Json2Form
 
         $values = array();
         $values += $this->_form_attr;
-        return Json2Form::_specify_template_default('form', $values);
+        return Form::_specify_template_default('form', $values);
     }
 
     /**
@@ -76,7 +76,7 @@ class Json2Form
 
         if (empty($args)) $args = array();
         // Create slug
-        if (empty($slug)) $slug = Json2Form::_make_slug($label);
+        if (empty($slug)) $slug = Form::_make_slug($label);
 
         $defaults = array(
             'type' => 'text',
@@ -173,7 +173,7 @@ class Json2Form
 //        $field = '';
         $output = '';
 //        $id = !empty($form_control['id']) ? ' id="' . $form_control['id'] . '"' : '';
-//        $class = count($form_control['class']) ? ' class="' . Json2Form::_output_classes($form_control['class']) . '"' : '';
+//        $class = count($form_control['class']) ? ' class="' . Form::_output_classes($form_control['class']) . '"' : '';
 //        $attr = $form_control['autofocus'] ? ' autofocus' : '';
 //        $attr = $form_control['checked'] ? ' checked' : '';
 //        $attr = $form_control['required'] ? ' required' : '';
@@ -198,7 +198,7 @@ class Json2Form
 //
 //            $wrap_before = '
 //				<' . $form_control['wrap_tag'];
-//            $wrap_before .= count($form_control['wrap_class']) > 0 ? Json2Form::_output_classes($form_control['wrap_class']) : '';
+//            $wrap_before .= count($form_control['wrap_class']) > 0 ? Form::_output_classes($form_control['wrap_class']) : '';
 //            $wrap_before .= !empty($form_control['wrap_style']) ? ' style="' . $form_control['wrap_style'] . '"' : '';
 //            $wrap_before .= !empty($form_control['wrap_id']) ? ' id="' . $form_control['wrap_id'] . '"' : '';
 //            $wrap_before .= '>';
@@ -248,7 +248,7 @@ class Json2Form
 //    {
 //        $output = '';
 //        foreach ($arr as $val => $opt) :
-//            $slug = Json2Form::_make_slug($opt);
+//            $slug = Form::_make_slug($opt);
 //            $output .= '
 //						<input type="checkbox" name="' . $name . '[]" value="' . $val . '" id="' . $slug . '"';
 //            $output .= $this->_form_attr['markup'] === 'xhtml' ? ' />' : '>';
@@ -268,7 +268,7 @@ class Json2Form
 //    {
 //        $output = '';
 //        foreach ($arr as $val => $opt) :
-//            $slug = Json2Form::_make_slug($opt);
+//            $slug = Form::_make_slug($opt);
 //            $output .= '
 //						<input type="radio" name="' . $name . '[]" value="' . $val . '" id="' . $slug . '"';
 //            $output .= $this->_form_attr['markup'] === 'xhtml' ? ' />' : '>';
@@ -289,10 +289,10 @@ class Json2Form
     {
         switch ($key) {
         case 'method':
-            if (!in_array($val, Json2Form::$HttpType)) return false;
+            if (!in_array($val, Form::$HttpType)) return false;
             break;
         case 'enctype':
-            if (!isset(Json2Form::$Enctype[$val])) return false;
+            if (!isset(Form::$Enctype[$val])) return false;
             break;
         case 'class':
         case 'id':
@@ -325,7 +325,7 @@ class Json2Form
     /**
      * @param $template_name string
      * @param $variables array of string - Placeholder replacements
-     * @test echo Json2Form::_specify_template_default('option', ['value' => 'ADA', 'option' => 'jlk;']);
+     * @test echo Form::_specify_template_default('option', ['value' => 'ADA', 'option' => 'jlk;']);
      * @return string - Specified html template
      */
     public static function _specify_template_default($template_name, $variables)

@@ -17,13 +17,13 @@ echo '<pre>';
 print_r($_FILES);
 echo '</pre>';
 
-require_once('Json2Form.php');
+require_once('Form.php');
 
 /*
 Create a new instance
 Pass in a URL to set the action
 */
-$form = new Json2Form();
+$form = new Form();
 
 /*
 Form attributes are modified with the _is_form_attr_valid function.
