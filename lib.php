@@ -46,7 +46,7 @@ function specify_template_abstract($template, $vars, $specialValuesForKeyValues 
  * @param $template
  * @param $vars
  * @param array $specialValuesForKeyValues
- * @test echo specify_template('<qwee AA="">', ['AA' => '123']);
+ * @test echo specify_template('<video title="">', ['title' => '123']);
  * @return string
  */
 function specify_template($template, $vars, $specialValuesForKeyValues = array())

@@ -325,7 +325,7 @@ class Json2Form
     /**
      * @param $template_name string
      * @param $variables array of string - Placeholder replacements
-     * @test echo Json2Form::_specify_template_default('option', ['value' => 'asdf', 'option' => 'jlk;']);
+     * @test echo Json2Form::_specify_template_default('option', ['value' => 'ADA', 'option' => 'jlk;']);
      * @return string - Specified html template
      */
     public static function _specify_template_default($template_name, $variables)
