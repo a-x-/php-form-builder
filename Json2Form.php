@@ -62,7 +62,7 @@ class Json2Form
 
         $values = array();
         $values += $this->_form_attr;
-        specify_template(eval_array(file_get_contents('defaultTemplatesCollection.json.php')), $values);
+        return Json2Form::_specify_template_default('form', $values);
     }
 
     /**
@@ -112,7 +112,7 @@ class Json2Form
     /**
      * @param $type - input (form control) type
      * @return string - input (form control) html
-     * @todo WRITE _build_input()
+     * @TODO WRITE _build_input()
      */
     private static function _build_input($type)
     {
