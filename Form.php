@@ -330,8 +330,8 @@ class Form
      */
     public static function _specify_template_default($template_name, $variables)
     {
-        return specify_template(eval_array(file_get_contents('defaultTemplatesCollection.json.php'))[$template_name],
-            $variables);
+        return trim(specify_template(eval_array(file_get_contents('defaultTemplatesCollection.json.php'))[$template_name],
+            $variables));
     }
 
 
