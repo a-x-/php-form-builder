@@ -3,15 +3,22 @@ require_once('lib.php');
 
 class Json2Form
 {
+    protected static $_templates_collection_file = 'defaultTemplatesCollection.json.php';
+
+    function __construct()
+    {
+    }
+
+
     /**
      * Create a slug from a label name
      * @param $string
      * @return mixed|string
-     * @todo  Add validation for classes and ids
      * Reviewed
      */
     public static function _make_slug($string)
     {
+        if (!Json2Form::_is_valid_attr_val($string)) return false;
         $result = preg_replace('!"|\'|_!', '', $string);
         $result = preg_replace('~[\W\s]~', '-', $result);
         $result = strtolower($result);
@@ -42,11 +49,13 @@ class Json2Form
      * @param $variables array of string - Placeholder replacements
      * @test echo Json2Form::_specify_template_default('option', ['value' => 'ADA', 'option' => 'jlk;']);
      * @return string - Specified html template
+     * Reviewed
      */
     public static function _specify_template_default($template_name, $variables)
     {
-        return trim(specify_template(eval_array(file_get_contents('defaultTemplatesCollection.json.php'))[$template_name],
-            $variables));
+        return
+            trim(specify_template(eval_array(file_get_contents(Json2Form::$_templates_collection_file))[$template_name],
+                $variables));
     }
 
 
