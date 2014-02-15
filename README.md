@@ -1,4 +1,4 @@
-# PHP JSON HTML5 Form generator
+# PHP JSON HTML5 Json2Form generator
 This is a small PHP class that makes it easy to build and output forms as HTML5. Forms are tedious and can be difficult to build just right. Also, there are so many different option possible that it's easy to forget what you can do with them. 
 
 **Forked from [joshcanhelp/php-form-builder](https://github.com/joshcanhelp/php-form-builder).**
