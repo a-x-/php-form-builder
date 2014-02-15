@@ -1,4 +1,4 @@
-# PHP JSON HTML5 Json2Form generator
+# PHP Json2Form generator
 This is a small PHP class that makes it easy to build and output forms as HTML5. Forms are tedious and can be difficult to build just right. Also, there are so many different option possible that it's easy to forget what you can do with them. 
 
 **Forked from [joshcanhelp/php-form-builder](https://github.com/joshcanhelp/php-form-builder).**
@@ -43,29 +43,24 @@ $new_form->add_input('I am a little field', 'little_field', array())
 Default and possible settings for field inputs (argument 3):
 
 ####<code>type</code>
-
 * Default is "text"
 * Can be set to anything and, unless mentioned below, is used as the "type" for an input field
 * Setting this to "textarea" will build a text area field
 * Using "select" in combination with the "options" argument will create a dropdown or multiline list.
 
 ####<code>value</code>
-
 * Default is empty
 * If a $_REQUEST index is found with the same name, the value is replaced with that value found
 
 ####<code>placeholder</code>
-
 * Default is empty
 * HTML5 attribute to show text that disappears on field focus
-
 ####<code>class</code>
 
 * Default is an empty string
 * Add multiple classes using an space splitted string of valid class names
 
 ####<code>options</code>
-
 * Default is an empty array
 * The options array is used for fields of type "select," "checkbox," and "radio." For other inputs, this argument is ignored
 * The array should be an associative array with the value as the key and the label name as the value
@@ -74,22 +69,18 @@ Default and possible settings for field inputs (argument 3):
 
 ####<code>range</code>
 <code>["min"=>000, "max"=>000, "step"=>""]</code>
-
 * Default are empty
 * Used for types "range" and "number"
 
 ####<code>autofocus</code>
-
 * Default is "false"
 * A "true" value simply adds the HTML5 "autofocus" attribute
 
 ####<code>checked</code>
-
 * Default is "false"
 * A "true" value simply adds the "checked" attribute
 
 ####<code>required</code>
-
 * Default is "false"
 * A "true" value simply adds the HTML5 "required" attribute
 
