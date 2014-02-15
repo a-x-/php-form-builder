@@ -6,33 +6,63 @@
  */
 class FormControl extends Json2Form
 {
-    private $_templates_collection_file;
+    protected $_abstractHtml;
 
-    function __construct($templates_collection_file)
+    function __construct()
     {
-        $this->_templates_collection_file = $templates_collection_file;
-
     }
 
     function build()
     {
+        return $this->_abstractHtml;
     }
 }
 
-class TextFormControl extends FormControl
+class AbstractTextFormControl extends FormControl
 {
+    function __construct($attr)
+    {
+        $this->_abstractHtml = Json2Form::_specify_template_default('abstract-text', $attr);
+    }
 
 }
 
 
-class ButtonFormControl extends FormControl
+class AbstractButtonFormControl extends FormControl
 {
-
+    function __construct($attr)
+    {
+        $this->_abstractHtml = Json2Form::_specify_template_default('abstract-button', $attr);
+    }
 }
 
 
-class TextareaFormControl extends FormControl
+class AbstractTextareaFormControl extends FormControl
 {
-
+    function __construct($attr)
+    {
+        $this->_abstractHtml = Json2Form::_specify_template_default('abstract-textarea', $attr);
+    }
 }
 
+/**
+ * Class AbstractSelectFormControl
+ * @todo add caption abstraction: caption as a first option with disable attr
+ */
+class AbstractSelectFormControl extends FormControl
+{
+    private $_optionHtml;
+    private $_optCollection;
+
+    function __construct($attr, $optCollection)
+    {
+        $optCollectionHtml = '';
+        foreach ($optCollection as $opt) {
+            $optCollectionHtml .= $this->_optionHtml = Json2Form::_specify_template_default('option', $opt);
+        }
+        $attr['opt-collection'] = $optCollectionHtml;
+
+        $this->_abstractHtml = Json2Form::_specify_template_default('abstract-select', $attr);
+        $this->_optCollection = $optCollection;
+    }
+}
