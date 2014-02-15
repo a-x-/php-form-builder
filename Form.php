@@ -43,26 +43,13 @@ class Form extends Json2Form
     /**
      * Parse the _form_controls and build the form HTML
      * @return string
-     * @todo Make general refactoring
      */
     function build_form()
     {
-        if ($this->_form_attr['add_honeypot'])
-            $this->add_input('Leave blank to submit', array(
-                'name' => 'honeypot',
-                'slug' => 'honeypot',
-                'id' => 'form_honeypot',
-            ));
-
-        if ($this->_has_file)
-            $this->_form_attr['enctype'] = Form::$Enctype['file'];
-
+        $this->_form_attr['enctype'] = ($this->_has_file) ? Form::$Enctype['file'] : Form::$Enctype['text'];
         foreach ($this->_form_controls as $form_control) {
-//            $min_max_range = $element = $end = $attr = $field = $label_html = '';
             $this->_build_input($form_control['type']);
-
         }
-
         $values = array();
         $values += $this->_form_attr;
         return Json2Form::_specify_template_default('form', $values);

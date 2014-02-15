@@ -66,3 +66,15 @@ class AbstractSelectFormControl extends FormControl
         $this->_optCollection = $optCollection;
     }
 }
+
+//todo consider move it to one of abstract form control classes
+//        if ($this->_form_attr['add_honeypot'])
+//            $this->add_input('Leave blank to submit', array(
+//                'name' => 'honeypot',
+//                'slug' => 'honeypot',
+//                'id' => 'form_honeypot',
+//            ));
+class HoneypotTextFormControl extends AbstractTextFormControl
+{
+
+}
