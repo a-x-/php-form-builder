@@ -55,8 +55,8 @@ Default and possible settings for field inputs (argument 3):
 ####<code>placeholder</code>
 * Default is empty
 * HTML5 attribute to show text that disappears on field focus
-####<code>class</code>
 
+####<code>class</code>
 * Default is an empty string
 * Add multiple classes using an space splitted string of valid class names
 
